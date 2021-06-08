@@ -1,5 +1,4 @@
 // Serial port related header file
-
 #include <errno.h>  /*Error number definition*/
 #include <fcntl.h>  /*File Control Definition*/
 #include <stdio.h>  /*Standard input and output definitions*/
@@ -9,8 +8,6 @@
 #include <sys/types.h>
 #include <termios.h> /*PPSIX Terminal Control Definition*/
 #include <unistd.h>  /*Unix Standard Function Definitions*/
-
-// macro definition
 
 #define FALSE -1
 #define TRUE 0
@@ -61,7 +58,10 @@ int UART0_Open(int fd, char *port)
  * Export parameters: void
  *******************************************************************/
 
-void UART0_Close(int fd) { close(fd); }
+void UART0_Close(int fd)
+{
+    close(fd);
+}
 
 /*******************************************************************
  * Name: UART0_Set
@@ -206,9 +206,9 @@ int UART0_Set(int fd, int speed, int flow_ctrl, int databits, int stopbits, int 
     // options.c_lflag &= ~(ISIG | ICANON);
 
     // Set the waiting time and minimum receiving characters
-    Options.c_cc[VTIME] = 1; /* Read a character waiting 1*(1/10)s */
+    options.c_cc[VTIME] = 1; /* Read a character waiting 1*(1/10)s */
 
-    Options.c_cc[VMIN] = 1; /* The minimum number of characters read is 1 */
+    options.c_cc[VMIN] = 1; /* The minimum number of characters read is 1 */
 
     /* If the data overflow occurs, receive the data,
     but no longer read Refresh the received data but do not read */
@@ -323,9 +323,6 @@ int main(int argc, char **argv)
     int i;
 
     char rcv_buf[100];
-
-    // char send_buf[20]="tiger john";
-
     char send_buf[20] = "tiger john";
 
     if (argc != 3) {
@@ -338,9 +335,7 @@ int main(int argc, char **argv)
 
     do {
         err = UART0_Init(fd, 9600, 0, 8, 1, 'N');
-
         printf("Set Port Exactly!\n");
-
     } while (FALSE == err || FALSE == fd);
 
     if (0 == strcmp(argv[2], "tx")) {
@@ -358,7 +353,7 @@ int main(int argc, char **argv)
         UART0_Close(fd);
     }
     else { /* rx */
-        While(1) {  // loop read data
+        while(1) {  // loop read data
             len = UART0_Recv(fd, rcv_buf, 99);
 
             if (len > 0) {

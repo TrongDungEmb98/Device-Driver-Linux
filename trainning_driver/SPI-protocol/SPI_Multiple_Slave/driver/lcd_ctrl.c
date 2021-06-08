@@ -143,40 +143,6 @@ static long nokia5110_ioctl(struct file *filep, unsigned int cmd,
 			LCD_DrawPixel(pixel->x, pixel->y, pixel->pixel);
 			break;
 
-	case IOCTL_DRAW_LINE:
-			shape = kmalloc(sizeof(Draw_Shape_t), GFP_KERNEL);
-			ret = copy_from_user(shape, argp, sizeof(Draw_Shape_t));
-			LCD_DrawLine(shape->x0, shape->y0, shape->x1, shape->y1,
-					shape->pixel);
-			break;
-
-	case IOCTL_DRAW_RECT:
-			shape = kmalloc(sizeof(Draw_Shape_t), GFP_KERNEL);
-			ret = copy_from_user(shape, argp, sizeof(Draw_Shape_t));
-			LCD_DrawRectangle(shape->x0, shape->y0, shape->x1,
-					shape->y1, shape->pixel);
-			break;
-
-	case IOCTL_DRAW_FILL_RECT:
-			shape = kmalloc(sizeof(Draw_Shape_t), GFP_KERNEL);
-			ret = copy_from_user(shape, argp, sizeof(Draw_Shape_t));
-			LCD_DrawFilledRectangle(shape->x0, shape->y0, shape->x1,
-					shape->y1, shape->pixel);
-			break;
-
-	case IOCTL_DRAW_CIRCLE:
-			cir = kmalloc(sizeof(Draw_Circle_t), GFP_KERNEL);
-			ret = copy_from_user(cir, argp, sizeof(Draw_Circle_t));
-			LCD_DrawCircle(cir->x, cir->y, cir->r, cir->pixel);
-			break;
-
-	case IOCTL_DRAW_FILL_CIRCLE:
-			cir = kmalloc(sizeof(Draw_Circle_t), GFP_KERNEL);
-			ret = copy_from_user(cir, argp, sizeof(Draw_Circle_t));
-			LCD_DrawFilledCircle(cir->x, cir->y,
-					     cir->r, cir->pixel);
-			break;
-
 	default:
 		return -ENOTTY;
 	}

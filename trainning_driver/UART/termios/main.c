@@ -318,7 +318,7 @@ int main(int argc, char **argv)
     int len;
     int i;
 
-    if (argc != 3) {
+    if (argc < 1) {
         printf("Usage: %s /dev/ttySn\n", argv[0]);
         return FALSE;
     }
@@ -371,18 +371,24 @@ static void *thread1_handle(void *arg)
         cmd = 0;
 
         printf("Select command to send\n");
+        printf("1. Trong Dung HTN K15A\n");
+        printf("2.Do An Tot Nghiep 2021\n");
+        printf("3. User typing content that want to send\n");
         scanf("%d", &cmd);
 
         clean_stdin();
 
         switch (cmd) {
             case 1: {
-                sprintf(command, "%s", "Trong Dung HTN k15A");
+                sprintf(command, "%s", "Trong Dung HTN k15A\n");
             } break;
 
             case 2: {
-                sprintf(command, "%s", "Do An Tot Nghiep 2021");
+                sprintf(command, "%s", "Do An Tot Nghiep 2021\n");
             } break;
+            case 3: {
+                fgets(command, 256, stdin);
+            }
 
             default:
                 break;
