@@ -318,7 +318,7 @@ int main(int argc, char **argv)
     int len;
     int i;
 
-    if (argc < 1) {
+    if (argc < 2) {
         printf("Usage: %s /dev/ttySn\n", argv[0]);
         return FALSE;
     }
@@ -380,11 +380,11 @@ static void *thread1_handle(void *arg)
 
         switch (cmd) {
             case 1: {
-                sprintf(command, "%s", "Trong Dung HTN k15A\n");
+                sprintf(command, "%s", "Trong Dung HTN k15A\r\n");
             } break;
 
             case 2: {
-                sprintf(command, "%s", "Do An Tot Nghiep 2021\n");
+                sprintf(command, "%s", "Do An Tot Nghiep 2021\r\n");
             } break;
             case 3: {
                 fgets(command, 256, stdin);
